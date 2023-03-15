@@ -1,6 +1,7 @@
 let inputBuscarFilme = document.querySelector("#input-buscar-filme");
 let btnBuscarFilme = document.querySelector("#btn-buscar-filme");
 
+
 btnBuscarFilme.onclick = () =>{
     if(inputBuscarFilme.value.length > 0){
         let filmes = new Array();
@@ -29,6 +30,13 @@ btnBuscarFilme.onclick = () =>{
     }
     return false;
 }
+let detalhesFilme = async (id)=>{
+    fetch("http://www.omdbapi.com/?apikey=6752ca2a&i="+id)
+    .then((resp)=> resp.json())
+    .then((resp)=> {
+
+    })
+}
 let listarFilmes = async (filmes)=>{
     let listaFilmes = await document.querySelector("#lista-filmes");
     listaFilmes.innerHTML = "";
@@ -36,6 +44,12 @@ let listarFilmes = async (filmes)=>{
     if (filmes.length > 0){
         filmes.forEach(async(filme)=>{
             listaFilmes.appendChild(await filme. getCard());
+            filme.getBtnDetalhes().onclick=()=>{
+                detalhesFilme(filme.id);
+                console.log(filme.titulo);
+                //let mostrarFilme = document.getElementById('mostrar-filme');
+                //mostrarFilme.style.display = 'block';
+            }
         });
     }
 }

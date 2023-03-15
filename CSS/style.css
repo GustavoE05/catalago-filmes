@@ -5,10 +5,41 @@
 #lista-filmes{
     display: flex;
     justify-content: start;
+    justify-content:center;
     flex-wrap: wrap;
     padding: 2rem;
+    gap: 1rem;
+    width: 90rem;
+    justify-content: center;
+}
+#mostrar-filme{
+    background-color: aliceblue;
+    display: none;
+    position:absolute;
+    z-index: 10;
+    float: left;
+    top: 100px;
+    left: 170px;
+    border: solid black 2px;
+    width: 80vw;
+    height: 40vw;
+    border-radius: 10vw;
+    
+
 }
 #navbar{
     width: 30px ;
     height: 24px;
+}
+#imgCartaz{
+    height: 50vh;
+
+}
+.card{
+    width: 37vh;
+}
+.btnDetalhesFilme{
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
 }
