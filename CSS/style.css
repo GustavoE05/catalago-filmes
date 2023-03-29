@@ -5,25 +5,25 @@
 #lista-filmes{
     display: flex;
     justify-content: start;
-    justify-content:center;
+    
     flex-wrap: wrap;
-    padding: 2rem;
-    gap: 1rem;
+    padding: 2.5rem;
+    gap: 2rem;
     width: 90rem;
-    justify-content: center;
+    
 }
-#mostrar-filme{
-    background-color: aliceblue;
+*#mostrar-filme{
     display: none;
-    position:absolute;
+    width: 350px;
+    height: auto;
+    background-color: white;
     z-index: 10;
+    position: fixed;
+    left: 300px;
+    top: 10px;
     float: left;
-    top: 100px;
-    left: 170px;
-    border: solid black 2px;
-    width: 80vw;
-    height: 40vw;
-    border-radius: 10vw;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px;
     
 
 }
@@ -38,8 +38,4 @@
 .card{
     width: 37vh;
 }
-.btnDetalhesFilme{
-    background-color: blue;
-    color: white;
-    border-radius: 10px;
-}
+

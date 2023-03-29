@@ -1,6 +1,6 @@
 let inputBuscarFilme = document.querySelector("#input-buscar-filme");
-let btnBuscarFilme = document.querySelector("#btn-buscar-filme");
-
+let btnBuscarFilme = document.querySelector("#btn-buscar-filme"); 
+let mostrarFilme = document.querySelector("#mostrar-filme");
 
 btnBuscarFilme.onclick = () =>{
     if(inputBuscarFilme.value.length > 0){
@@ -10,18 +10,18 @@ btnBuscarFilme.onclick = () =>{
         .then((resp)=>{
             resp.Search.forEach((item)=>{
                 console.log(item);
-                let filme=new Filme(
+                let filme = new Filme(
                     item.imdbID,
                     item.Title,
                     item.Year,
-                    null,
-                    null,
+                    item.Genre,
+                    item.Runtime,
                     item.Poster,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
+                    item.Plot,
+                    item.Director,
+                    item.Actors,
+                    item.Awards,
+                    item.imdbRating
                 );
                 filmes.push(filme);
             });
@@ -32,24 +32,48 @@ btnBuscarFilme.onclick = () =>{
 }
 let detalhesFilme = async (id)=>{
     fetch("http://www.omdbapi.com/?apikey=6752ca2a&i="+id)
-    .then((resp)=> resp.json())
-    .then((resp)=> {
-
-    })
+    .then((resp)=>resp.json())
+    .then((resp)=>{
+        let filme = new Filme(
+            resp.imdbID,
+            resp.Title,
+            resp.Year,
+            resp.Genre.split(","),
+            resp.Runtime,
+            resp.Poster,
+            resp.Plot,
+            resp.Director,
+            resp.Actors.split(","),
+            resp.Awards,
+            resp.imdbRating
+        )
+        document.querySelector("#card-filme").innerHTML = "";
+        document.querySelector("#card-filme").appendChild(filme.getDetalhesFilme());
+        document.querySelector("#mostrar-filme").style.display = "flex";
+        document.querySelector('#btnFechar').onclick = () =>{
+            document.querySelector('#lista-filmes').style.display = 'flex';
+            document.querySelector('#mostrar-filme').innerHTML = "";
+            document.querySelector('#mostrar-filme').style.display = 'none';
+        }
+       
+    });
 }
 let listarFilmes = async (filmes)=>{
-    let listaFilmes = await document.querySelector("#lista-filmes");
-    listaFilmes.innerHTML = "";
+    let listaFilmes = document.querySelector("#lista-filmes");
+    document.querySelector("#mostrar-filme").innerhtml = "";
+    document.querySelector("#mostrar-filme").style.display = "none";
     console.log(listaFilmes);
     if (filmes.length > 0){
         filmes.forEach(async(filme)=>{
-            listaFilmes.appendChild(await filme. getCard());
+            listaFilmes.appendChild(await filme.getCard());
             filme.getBtnDetalhes().onclick=()=>{
                 detalhesFilme(filme.id);
-                console.log(filme.titulo);
-                //let mostrarFilme = document.getElementById('mostrar-filme');
-                //mostrarFilme.style.display = 'block';
+                mostrarFilme.style.display = "block";
             }
         });
     }
 }
+function fecharBotao(){
+    mostrarFilme.style.display = "none";
+} 
+
