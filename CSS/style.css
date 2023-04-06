@@ -16,7 +16,7 @@
     background-color: white;
     z-index: 10;
     position: fixed;
-    left: 300px;
+    left: 400px;
     top: 10px;
     float: left;
     border-radius: 10px;
@@ -31,5 +31,16 @@
     height: 50vh;
 
 }
-
-
+#btnExcluir{
+    width: 15vh;
+}
+#btnSalvar{
+    width: 15vh;  
+}
+.btn-container {
+    display: flex;
+    justify-content: space-around;
+  }
+.btnDetalhesFilme{
+    margin-left: 15vh;
+}

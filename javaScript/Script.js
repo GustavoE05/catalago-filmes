@@ -147,4 +147,3 @@ function fecharBotao(){
 home.onclick=()=>{
     document.querySelector("#lista-filmes").innerHTML = "";
 }
-//()

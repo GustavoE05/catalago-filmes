@@ -126,6 +126,9 @@ class Filme{
         detalhesrow.appendChild(coluna);
         cardDetalhes.appendChild(detalhesrow);
 
+        let divBtns = document.createElement("div");
+        divBtns.setAttribute("class", "btn-container");
+
         let botaoSalvar=document.createElement("button");
         botaoSalvar.appendChild(document.createTextNode("salvar"));
         botaoSalvar.setAttribute("id","btnSalvar");
@@ -134,10 +137,13 @@ class Filme{
 
         let botaoExcluir =document.createElement("button");
         botaoExcluir.appendChild(document.createTextNode("Excluir"));
-        botaoExcluir.setAttribute("id","btnExcluir");
+        botaoExcluir.setAttribute("id","btnExcluir")
         botaoExcluir.setAttribute("class","btn btn-danger");
         cardDetalhes.appendChild(botaoExcluir);
-
+        
+        divBtns.appendChild(botaoSalvar);
+        divBtns.appendChild(botaoExcluir);
+        cardBody.appendChild(divBtns);
         return cardDetalhes;
     }
 }
