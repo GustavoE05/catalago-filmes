@@ -5,11 +5,8 @@ let mostrarFilme = document.getElementById('mostrar-filme');
 let navFavoritos = document.querySelector('#nav-favoritos');
 let home = document.querySelector("#home");
 
-home.onclick=()=>{
-    document.querySelector("#lista-filmes").innerHTML = "";
-}
-
 btnBuscarFilme.onclick = () =>{
+
     if(inputBuscarFilme.value.length > 0){
         let filmes = new Array();
         fetch("http://www.omdbapi.com/?apikey=6752ca2a&s="+inputBuscarFilme.value, {mode:"cors"})
@@ -55,8 +52,18 @@ let detalhesFilme = async (id)=>{
             resp.imdbRating
         )
         mostrarFilme.appendChild(filme.getDetalhesFilme());
-        document.querySelector("#btnSalvar").onclick =()=>{
-            salvarFilme(filme);
+        let btnSalvar = document.querySelector("#btnSalvar");
+        let filmesFavoritos = JSON.parse(localStorage.getItem('filmesFavoritos')) || [];
+        if (filmesFavoritos.some(favorito => favorito.id === filme.id)) {
+            btnSalvar.disabled = true;
+        } else {
+            btnSalvar.onclick = () => {
+                salvarFilme(filme);
+                btnSalvar.disabled = true;
+            }
+        }
+        document.querySelector("#btnExcluir").onclick=()=>{
+            ExcluirFilme(filme);
         }
 
     });
@@ -110,12 +117,25 @@ let salvarFilme = (filme) => {
     }else{
         filmes=[filme];
     }
-    
     filmes = JSON.stringify(filmes);
     localStorage.setItem("filmesFavoritos",filmes);
     console.log(filmes);
 }
-  
+let ExcluirFilme = (filme) => {
+    let filmesString = localStorage.getItem("filmesFavoritos");
+    let filmes=JSON.parse(filmesString);
+    let position = filmes.findIndex(function(item){
+        return item.id === filme.id;
+    });
+
+    if(position!==1){
+        filmes.splice(position, 1);
+    }
+    filmes = JSON.stringify(filmes);
+    localStorage.setItem("filmesFavoritos", filmes)
+
+}
+
 navFavoritos.onclick = () =>{
     listarFavoritos();
 }
@@ -124,4 +144,7 @@ function fecharBotao(){
     document.querySelector("#card-filme").innerHTML = "";
 }
 
-
+home.onclick=()=>{
+    document.querySelector("#lista-filmes").innerHTML = "";
+}
+//()
